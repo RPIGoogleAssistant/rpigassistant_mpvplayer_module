@@ -14,7 +14,7 @@ skipamount = 0
 def ismpvplayerplaying():
     for pid in psutil.pids():
         p=psutil.Process(pid)
-        if 'mpv'in p.name():
+        if 'mpv' in p.name():
             mpvactive=True
             break
         else:
@@ -30,7 +30,7 @@ def mpvplayergetvolume():
 #restore to previous value using mpvplayerrestorevolume
 def mpvplayeradjustvolume(mpvvolumelevel):
     if ismpvplayerplaying():
-       if mpvvolumelevel < mpvplayergetvolume():
+       if int(mpvvolumelevel) < int(mpvplayergetvolume()):
           os.system('echo \'{ "command": ["set_property", "volume", "'+ mpvvolumelevel +'"] }\' | socat - /tmp/mpvsocket')
 
 #Restore to volume set in mpvplayer.json
